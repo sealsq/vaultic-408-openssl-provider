@@ -1,0 +1,3 @@
+[submodule "lib/libVaultIC/408/vaultic_elib_408/src"]
+	path = lib/libVaultIC/408/vaultic_elib_408/src
+	url = https://git.sealsq.com/elib/408/sealsq-elib-408.git
