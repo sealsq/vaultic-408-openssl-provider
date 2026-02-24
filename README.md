@@ -38,7 +38,7 @@ Run the commands below to build OpenSSL provider for VaultIC 408 secure element
 
 ```console
 git clone --recurse-submodules https://github.com/sealsq/vaultic-408-openssl-provider.git
-cd sealsq_vic408_openssl_provider
+cd vaultic-408-openssl-provider
 mkdir build
 cd build
 cmake ..
@@ -91,11 +91,11 @@ The keypair and certificate are to identify the server are clear
   
   Run Server as
 ```console
-cd sealsq_vic408_openssl_provider/lib/libVaultIC/408/certificate/s_server/
+cd vaultic-408-openssl-provider/lib/libVaultIC/408/certificate/s_server/
 openssl s_server -accept 8080  -CAfile rootCACert_ECC.pem -no_ssl3  -cert serverCert_ECC.pem -key serverKey_ECC.pem -Verify 2 -msg -verify_return_error
 ```
 
-Run Client as
+In another Terminal run Client as
 
 ```console
 openssl s_client --provider /usr/local/lib/libsealsq_vic408_provider.so --provider default -connect 127.0.0.1:8080 -tls1_2 -cert vaulticCert:0x00 -key vaulticKey:ecc:0xEC:0x08:0x07 -state -msg
@@ -110,53 +110,11 @@ openssl s_client --provider /usr/local/lib/libsealsq_vic408_provider.so --provid
   
 Run Server as
 ```console
-cd sealsq_vic408_openssl_provider/lib/libVaultIC/408/certificate/s_server/
+cd vaultic-408-openssl-provider/lib/libVaultIC/408/certificate/s_server/
 openssl s_server -accept 8080  -CAfile rootCACert_RSA.pem -no_ssl3  -cert serverCert_RSA.pem -key serverKey_RSA.pem -Verify 1 -msg -verify_return_error
 ```
 
 Run Client as
 ```console
 openssl s_client --provider /usr/local/lib/libsealsq_vic408_provider.so --provider default -connect 127.0.0.1:8080 -tls1_2 -cert vaulticCert:0x00 -key vaulticKey:rsa:0x20:0x02:0x01 -state -msg
-```
-
-## OpenSSL Configuration file
-The provider can be loaded via OpenSSL configuration file also.
-
-Changes required in configuration file to load provider is shown below,
-
-```console
-openssl_conf = openssl_init
-config_diagnostics = 1
-
-[openssl_init]
-providers = provider_section
-
-[provider_section]
-sealsq_prov = sealsq_section
-default = default_sect
-
-[sealsq_section]
-identity = sealsq_prov
-module = <provider lib path>
-activate = 1
-
-[default_sect]
-activate = 1
-```
-
-  
-
-The order in which the providers are written in [provider_section] section, defines the priority of the providers loaded.
-
-The one included first, will have the higher priority.
-
-  
-  
-
-Create a new config file to load custom providers and set the OPENSSL_CONF env variable to config file path.
-
-  
-
-```console
-export OPENSSSL_CONF=<CONFIG_FILE_PATH>
 ```

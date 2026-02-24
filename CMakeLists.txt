@@ -13,7 +13,7 @@ set(VAULTIC_BUILD_CRYPTO_EXT ON)
 SET(VAULTIC_PRODUCT 408)   
 
 
-add_subdirectory(vic408_lib/vaultic_tls-4xx/src vaultic_tls)
+add_subdirectory(${VIC408_ELIB_DIR}/vaultic_tls-4xx/src vaultic_tls)
 
 FILE(
     GLOB
