@@ -37,8 +37,9 @@ OpenSSL provider is tested on Raspberry Pi 4 Model B
 Run the commands below to build OpenSSL provider for VaultIC 408 secure element
 
 ```console
-git clone --recurse-submodules https://github.com/sealsq/vaultic-408-openssl-provider.git
+git clone https://github.com/sealsq/vaultic-408-openssl-provider.git
 cd vaultic-408-openssl-provider
+git submodule update --init --recursive
 mkdir build
 cd build
 cmake ..
